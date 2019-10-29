@@ -8,11 +8,12 @@ import Stalk from "./Stalk"
 class App extends React.Component{
 state = {
   user:[],
-  name:"KeshawnSharper"
+  name:"KeshawnSharper",
+  followers:[]
 };
 
 componentDidMount(){
-  fetch(`https://api.github.com/users/KeshawnSharper`)
+  fetch(`https://api.github.com/users/${this.state.name}`)
   .then(res => res.json())
   .then(data => this.setState({user: data})  )
   .catch(err => console.log(err))
@@ -25,7 +26,7 @@ handleChange = e => {
 componentDidUpdate(prevProps,prevState) {
   if (this.state.user !== prevState.user){
     if (this.state.name === "hello"){
-      fetch(`https://api.github.com/users/KeshawnSharper`)
+      fetch(`https://api.github.com/users/${this.state.name}`)
   .then(res => res.json())
   .then(data => this.setState({user: data})  )
   .catch(err => console.log(err))
@@ -38,6 +39,12 @@ fetchUser = e => {
   .then(res => res.json())
   .then(data => this.setState({user: data})  )
   .catch(err => console.log(err))
+
+  fetch(`https://api.github.com/users/${this.state.name}/followers`)
+  .then(res => res.json())
+  .then(data => this.setState({followers:data}))
+  .catch(err => console.log(err))
+
 }
 
 render(){
@@ -52,9 +59,9 @@ return (
   <h2>{this.state.user.login}</h2>
   <img src={this.state.user.avatar_url} />
 <p>{this.state.user.bio}</p>
+{this.state.followers.map(i => <p key={i.id}>{i.login}</p>)}
 
   </div>
- <Name name={this.state.name} />
  <form>
    <input 
    onChange={this.handleChange}
