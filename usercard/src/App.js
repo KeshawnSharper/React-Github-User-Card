@@ -10,7 +10,7 @@ state = {
   user:[],
   name:"KeshawnSharper",
   followers:[]
-};
+}
 
 componentDidMount(){
   fetch(`https://api.github.com/users/${this.state.name}`)
