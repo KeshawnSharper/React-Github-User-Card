@@ -17,7 +17,7 @@ componentDidMount(){
   .then(res => res.json())
   .then(data => this.setState({user: data})  )
   .catch(err => console.log(err))
-
+//console.log
   console.log(this.state.user)
 }
 handleChange = e => {
